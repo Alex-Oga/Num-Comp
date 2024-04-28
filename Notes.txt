@@ -1,0 +1,275 @@
+How to do "math" with computers
+Grading:
+Homework - 10%, 7HW, Weekly
+1 - 4 before midterm, 3 - 7, before final
+week 6/7 midterm
+Midterm - 40%, Take home 
+Final - 40%, Take home
+Project - 10%, 1-2 People, Do something cool
+
+Numerical Computation 2021:
+https://www.youtube.com/playlist?list=PL0jxQTuSuktJkOe1Xnto2jyN0fOLMO748
+
+Numerical Computation 2020:
+https://www.youtube.com/playlist?list=PL0jxQTuSuktKuqVKP3SbQhyUuxPjMd3C7
+
+pip3 install mathlib
+
+jupyter notebook
+
+matplotlib.org
+
+Jupiter notebook
+
+Recommended Movie
+ - Hidden Figure
+Inverse square root documentary
+
+%matplotlib inline 
+from matplotlib import pyplot as plt
+import numpy as np
+import math
+
+add code
+ - doesnt automatically define
+    - print from the kernel
+    - let it be self-contained, less problems
+if you want index
+ - use enumerate()
+exp
+ - np.exp()
+plt.plot
+np.exp() - exponentiate list
+math.exp() - single variable 
+label='linear'
+ls-'dashed'
+
+transcidental equation
+x = cos(x)
+# plot y = x
+# plot y = cos(x)
+plt.figure(figsize=(20,8)) - changes size of the graph
+xs = np.linspace(0,2,100)
+yls = xs
+plt.plot(xs, y1s, label='y=x')
+y2s = np.cos(xs)
+plt.plot(xs, y2s, label='y=cos(x)')
+plt.legend()
+plt.xlim(0.6, 0.8) - zoom in on the graph
+plt.ylim(0.5,1)
+plt.grid() - shows grid
+g = 0.7375# +- 0.015 # 0.725, 0.75
+#g = 0.7 +- 0.1 # 0.1 is the uncertainty
+#g in 0.6, 0.8 # range
+print(np.cos(g), g)
+plt.axvline(g, color='darkgreen') - vertical line
+plt.axhline(g,color='darkred') - horizontal line
+#turn into f(x) = 0
+#uncertainty = uncertainty/2, keep doing that until you get the value
+# bound, guess in the middle ((left+right)/2), which side to pick(Should have different signs)
+from dataclasses import dataclass
+
+@dataclass
+class BisectionResult:
+	mid_point: float
+	uncertainty: float
+def bisection(f, l: float, r: float, n: int) -> float:
+  #guess
+  #pick side
+  #repeat
+  for i in range(n):
+    g = (l + r)/2
+    if f(l)*f(g) < 0:
+      r = g
+    else:
+      l = g
+  return BisectionResult(mid_point=guess, uncertainty=(r-l)/2)
+def f(x):
+  return x - np.cos(x)
+sol=bisection(f, 0, 1, 20)
+print(sol)
+print(sol.mid_point, np.cos(sol.mid_point))
+https://colab.research.google.com/drive/1K1oziCKp2wAvL5cXBp_gbrX-3BbM3qSB?usp=sharing
+guess
+slope - f'(x)
+find the intercept
+next guess
+
+def f(x):
+  return x**3 - x - 1
+def fp(x):
+  return 3*x**2 - 1
+def newton(f, fp, x0: float, n: int) -> float:
+  guess = x0
+  for i in range(n):
+    guess = guess - f(guess)/fp(guess)
+  return guess
+sol = newton(f, fp, 2, 5)
+sol
+
+Taylor's Theorem
+
+f(x)
+ - can be written as polynomial 
+
+Taylor series expansion  of e^x
+
+Newtons method: Faster than bisection
+
+bisection:
+Guarantees the answer
+
+Derivative
+ - Slope
+ - Rate of change
+
+Central difference
+Forward difference
+
+Arbitrary stencil point - Maybe on exam
+
+NumPy
+
+Quadratic
+2 points - line - mx+c
+3 points - parabola - ax^2+bx+c
+
+Interpolation
+ - guessing value between data point
+n points - polynomial
+           deg n-1
+         - pass through every point perfectly
+            - Lagrange Interpolatry Polynomial
+y=(x-x2)(x-x3)(x-x4)
+y(x1)=(x1-x2)(x1-x3)(x1-x4)
+
+w1(x)
+ - 0 at all other x
+ - 1 at x1
+
+wj
+ - 0 at all xi where i != j
+ - 1 at xj
+
+x1,y1(1,2)
+x2,y2(3,1)
+x3,y3(4,0.5)
+x4,y4(7,1.5)
+Polynomial
+-0 at x3, x4 -     -
+-2 at x1     --2w1 --
+-1 at x2           ---w2
+1.5 at x4
+f(x) = 2w1(x)+1w2(x)+0.5w3(x)+1.5w4(x)
+
+w1(x)=(x-3)(x-4)(x-7)/(1-3)(1-4)(1-7)
+w2(x)=(x-1)(x-4)(x-7)/(3-1)(3-4)(3-7)
+w3(x)=(x-1)(x-3)(x-7)/(4-1)(4-3)(4-7)
+w4(x)=(x-1)(x-3)(x-4)/(7-1)(7-3)(7-4)
+f(x)=2w1(x)+1w2(x)+0.5w3(x)+1.5w4(x)
+
+Numerical integration
+ - Area under the curve
+left height = f(x i)
+right height = f(x i+1)
+area of a trapezoid
+1/2 + delta x (f(x i) + f(x i+1))
+x0 - xn
+ - n number of pieces
+
+wolfram alpha
+
+int s^-x sin(x^2),x=0... 1
+
+numpy quad
+
+gaussian quadrature
+
+RNG - Random Number Generator
+
+Shoelace formula
+
+streamlit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pseudo Random Number Generator
+
+Linear Congruent Generator (PRNG)
+
+
+
+Hough Transform
+Straight line: y = mx + c
+Given r, theta -> draw the line 
+
+
+numpy.histogram.html
+
+Project:
+Show what you learned 
+Doesn't have to be practical
+Ideas:
+Having multiple pictures and getting rid of the peole in the background
+
+kaggle.com/datasets/heitornunes/nursery
+
+
+def random_breed(birds):
+	mom_idx = np.random.randint(len(birds))
+	dad_idx = np.random.
+
+def find_super_bird():
+	birds = [random_bird() for _ in range(200)]
+	strong_ones = squid_games(birds)
+	for gen in range(28):
+		print('-' * 30, gen)
+		children = [random_breed(strong_ones) for i in range(150)
+		jj = [random_bird() for _ in range(30)]
+		birds = strong_ones + children + jj
+		strong_ones = squid_games(birds)
+	return strong_ones[0]
+
+super_bird = find_super_bird()
+print(super_bird)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
